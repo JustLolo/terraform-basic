@@ -3,7 +3,7 @@ terraform {
     aws = {
       source = "hashicorp/aws"
       #version = "~> 3.0"
-      #in a production environment you have to set fix version
+      #in a production environment you have to set a fixed version
     }
   }
 }
@@ -15,5 +15,9 @@ provider "aws" {
   shared_config_files      = [file("~/.aws/config")]
   shared_credentials_files = [file("~/.aws/credentials")]
 
+  
   profile = "vscode"
+  #just set the actual profile you are using in aws cli
+  #if you want terraform uses the same actual profile as aws cli
+  #you should use a variable pointing to the env variable AWS_PROFILE
 }
