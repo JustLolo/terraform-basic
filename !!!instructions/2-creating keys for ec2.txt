@@ -1,0 +1,5 @@
+>>>>> creating a encription key
+>>>>> -N "" 	  -> passphrase
+>>>>> -t ed25519  -> type of encryption
+cd ~/.ssh
+ssh-keygen -f "set_key_name" -N "" -t ed25519

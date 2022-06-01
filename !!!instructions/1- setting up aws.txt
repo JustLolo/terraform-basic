@@ -1,0 +1,17 @@
+|________________________________|
+|>>>>> Setting up AWS SDK <<<<<<<|
+|/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\|
+
+1 ->>>-> install aws sdk
+2 ->>>-> create a IAM user named "vscode" save the csv password
+
+3 ->>>-> https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html
+3 ->>>-> run "aws configure"
+AWS Access Key ID [None]: AKIAIOSFODNN7EXAMPLE
+AWS Secret Access Key [None]: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+Default region name [None]: us-west-2
+Default output format [None]: json
+
+[ALTERNATIVE]
+3 ->>>-> OR "aws configure import --csv file://credentials.csv"
+3 ->>>-> credential csv is the file we download on step 2.

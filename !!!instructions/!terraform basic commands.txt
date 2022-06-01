@@ -1,0 +1,22 @@
+>> starting terraform proyect
+terraform init
+
+>> pushing the config to aws
+terraform plan
+terraform apply
+terraform destroy
+
+
+>> listing resources within terraform state
+terraform state list
+
+>> listing the properties of a resource
+terraform state show NameOfResource	#this resource name is got from terraform state list
+
+>> Replacing a resource (useful when you want to run a PROVISIONER, normally it's an instance)
+terraform apply -replace NameOfResource
+
+>> correct formating
+terraform fmt
+
+>> 

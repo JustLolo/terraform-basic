@@ -1,0 +1,15 @@
+# Read more about SSH config files: https://linux.die.net/man/5/ssh_config
+Host ec2-34-222-124-108.us-west-2.compute.amazonaws.com
+    HostName ec2-34-222-124-108.us-west-2.compute.amazonaws.com
+    IdentityFile ~/.ssh/mtc_key
+    User ubuntu
+
+    # Read more about SSH config files: https://linux.die.net/man/5/ssh_config
+Host Instance_Using_Docker
+    HostName ec2-35-166-0-242.us-west-2.compute.amazonaws.com
+    IdentityFile ~/.ssh/mtc_key
+    User ubuntu
+
+Host alias
+    HostName hostname
+    User user
