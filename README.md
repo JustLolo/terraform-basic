@@ -1,6 +1,10 @@
 # Landing Page
 
-Join this to my github
+Fix all the issues I have when I merged this to github
+
+DONE -> Join this to my github
+
+
 
 Add in AWS -> VSCode tip through AWS CLI extension, use this [video](https://www.youtube.com/watch?v=ThlynejTCWE\&list=PL5\_Rrj9tYQAlgX9bTzlTN0WzU67ZeoSi\_\&index=3) for reference purposes.
 
