@@ -1,6 +1,6 @@
 # Landing Page
 
-Fix all the issues I have when I merged this to github
+Fix all the issues I have when I merged this to github, the only I found was readme.me was changed, fix this
 
 DONE -> Join this to my github
 
