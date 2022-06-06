@@ -1,6 +1,9 @@
 # Local .terraform directories
 **/.terraform/*
 
+# local git repo tracker
+**/.git/*
+
 # .tfstate files
 *.tfstate
 *.tfstate.*
