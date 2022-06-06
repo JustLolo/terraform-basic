@@ -22,7 +22,7 @@ It can be configure manually.
 
 ## **Set the** [**environment variable**](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html#envvars-set) **** `AWS_PROFILE`
 
-`setx AWS_PROFILE=test`
+`setx AWS_PROFILE test`
 
 {% hint style="info" %}
 * <mark style="color:green;">**test**</mark> will be the profile used by all the terminals.
