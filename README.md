@@ -1,38 +1,9 @@
-# terraform-basic
-Basic terraform setup
+# Landing Page
 
+Join this to my github
 
+Add in AWS -> VSCode tip through AWS CLI extension, use this [video](https://www.youtube.com/watch?v=ThlynejTCWE\&list=PL5\_Rrj9tYQAlgX9bTzlTN0WzU67ZeoSi\_\&index=3) for reference purposes.
 
-based on this course:
-https://www.youtube.com/playlist?list=PL5_Rrj9tYQAlgX9bTzlTN0WzU67ZeoSi_
+Order Terraform Basic Section
 
->> you need to install git
-
->> You can write outputs you need in the file "outputs.tf" (useful for automation)
->> use "terraform outputs" to get the outputs of the actual state
-
-
->> modify terraform.tfvars to change de default variables values
-
-vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
-> VARIABLES order of priority <
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
->>> (3rd) <<<
->> use:
-terraform console
-var.host_os
-exit
-- to check the what the variable value is
-
->>> (2nd) <<<
->> use:
-terraform [apply|plan|console] -var="host_os=windows"
-- when you want to use this as a variable script, modifiying host_os variable
-
->>> (1st) <<<
->> use:
-terraform apply/plan/console -var-file="dev.tfvar"
-- when you want this file takes preference as source of variables values instead 
-of the default file (terraform.tfvars)
--useful when you have several EC2 instances you want to handle
-
+Build things! That's what matters. Take this project and make it yours. Customize the userdata. You can also add an S3 bucket and set up a script to automatically back up the home folder to S3 on destroy. That would be a really cool project.
