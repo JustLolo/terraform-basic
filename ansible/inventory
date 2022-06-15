@@ -1,0 +1,15 @@
+[master]
+192.168.0.138
+
+[nodes]
+192.169.0.138
+192.168.0.139
+192.168.0.140
+
+[master:vars]
+ansible_ssh_user=master
+ansible_ssh_pass=master
+
+[nodes:vars]
+ansible_ssh_user=christian
+ansible_ssh_pass=christian
