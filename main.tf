@@ -104,6 +104,8 @@ resource "aws_key_pair" "mtc_auth" {
 }
 
 resource "aws_instance" "dev_node" {
+  count = 2
+
   ami                    = data.aws_ami.server_ami.id
   instance_type          = "t2.micro"
   vpc_security_group_ids = [aws_security_group.mtc_sg.id]
@@ -118,7 +120,7 @@ resource "aws_instance" "dev_node" {
   }
 
   tags = {
-    Name = "dev-node"
+    Name = "dev-node-${count.index}"
   }
 
   # PROVISIONER => used to configure ./ssh/config when creating the ec2 instance using template windows-ssh-config.tpl
