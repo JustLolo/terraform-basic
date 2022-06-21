@@ -99,12 +99,12 @@ resource "aws_key_pair" "mtc_auth" {
   public_key = tls_private_key.pk.public_key_openssh
 
   provisioner "local-exec" { # Create "myKey.pem" to your computer!!
-    command = "echo '${tls_private_key.pk.private_key_pem}' > ~/.ssh/myKey.pem"
+    command = "echo '${tls_private_key.pk.private_key_pem}' > ~/.ssh/myKey.pem\nchmod 400 ~/.ssh/myKey.pem"
   }
 }
 
 resource "aws_instance" "dev_node" {
-  count = 2
+  count = 1
 
   ami                    = data.aws_ami.server_ami.id
   instance_type          = "t2.micro"
@@ -128,7 +128,7 @@ resource "aws_instance" "dev_node" {
     command = templatefile("${var.host_os}-ssh-config.tpl", {
       hostname     = self.public_dns,             # hostname of the ec2 instance
       user         = "ubuntu",                    # default is "root"
-      identityfile = pathexpand("~/.ssh/mtc_key") # path to the private key
+      identityfile = pathexpand("~/.ssh/myKey.pem") # path to the private key
     })
 
     interpreter = var.host_os == "linux" ? ["bash", "-c"] : ["Powershell", "-Command"] # default is ["powershell", "-Command"]
