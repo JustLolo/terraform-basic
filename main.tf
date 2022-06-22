@@ -97,6 +97,7 @@ resource "tls_private_key" "pk" {
 resource "aws_key_pair" "mtc_auth" {
   key_name   = "myKey"   # Create "myKey" to AWS
   public_key = tls_private_key.pk.public_key_openssh
+  # public_key = "${file("terraform-demo.pub")}"    # Use if you have your own key
 
   provisioner "local-exec" { # Create "myKey.pem" to your computer!!
     command = "echo '${tls_private_key.pk.private_key_pem}' > ~/.ssh/myKey.pem\nchmod 400 ~/.ssh/myKey.pem"
@@ -104,10 +105,10 @@ resource "aws_key_pair" "mtc_auth" {
 }
 
 resource "aws_instance" "dev_node" {
-  count = 1
+  count = var.instance_count
 
   ami                    = data.aws_ami.server_ami.id
-  instance_type          = "t2.micro"
+  instance_type          = var.instance_type
   vpc_security_group_ids = [aws_security_group.mtc_sg.id]
   subnet_id              = aws_subnet.mtc_public_subnet.id
   key_name               = aws_key_pair.mtc_auth.id
@@ -120,7 +121,7 @@ resource "aws_instance" "dev_node" {
   }
 
   tags = {
-    Name = "dev-node-${count.index}"
+    Name = "${var.instance_tags}-${count.index + 1}"
   }
 
   # PROVISIONER => used to configure ./ssh/config when creating the ec2 instance using template windows-ssh-config.tpl
@@ -135,9 +136,3 @@ resource "aws_instance" "dev_node" {
   }
 
 }
-
-
-
-
-
-

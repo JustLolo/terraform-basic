@@ -10,7 +10,7 @@ terraform {
 
 # Configure the AWS Provider
 provider "aws" {
-  region = "us-west-2"
+  region = var.aws_region
   #if you are using environment variables and have set aws already don't need to set the following configuration
 
   #assuming you have configured aws cli already
