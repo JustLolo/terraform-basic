@@ -106,8 +106,10 @@ resource "aws_key_pair" "mtc_auth" {
 
 resource "aws_instance" "dev_node" {
   count = var.instance_count
-
-  ami                    = data.aws_ami.server_ami.id
+  
+  #using datasources
+  #ami                    = data.aws_ami.server_ami.id
+  ami                    = lookup(var.ami,var.aws_region)
   instance_type          = var.instance_type
   vpc_security_group_ids = [aws_security_group.mtc_sg.id]
   subnet_id              = aws_subnet.mtc_public_subnet.id
