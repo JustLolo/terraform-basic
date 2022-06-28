@@ -17,3 +17,4 @@
 * [Files and Directories](basics/files-and-directories.md)
 * [Environment](basics/environment.md)
 * [Basics](basics/basics.md)
+* [cheatsheet](basics/cheatsheet.md)
