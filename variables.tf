@@ -4,7 +4,7 @@ variable "host_os" {
 }
 
 variable "instance_count" {
-  default = "1"
+  default = "0"
 }
 
 variable "instance_type" {
@@ -24,7 +24,8 @@ variable "aws_region" {
 variable "ami" {
   type    = map
   default = {
-    "us-east-2" = "ami-0010d386b82bc06f0"
-    "us-west-2" = "ami-0a99cf9e5c850139c"
+    # Ubuntu 20.04 LTS
+    "us-west-2" = "ami-0ddf424f81ddb0720"
+    "us-east-2" = "ami-0b4fa084a1e7e6f5a"
   }
 }
