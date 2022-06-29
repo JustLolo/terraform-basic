@@ -3,6 +3,7 @@
 
 # local git repo tracker
 **/.git/*
+**/.git-old/*
 
 # .tfstate files
 *.tfstate

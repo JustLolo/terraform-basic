@@ -11,3 +11,16 @@ sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubun
 sudo apt-get update -y &&
 sudo apt-get install -y docker-ce docker-ce-cli containerd.io &&
 sudo usermod -aG docker ubuntu
+
+
+#Installing Ansible
+# not working properly yet
+apt-get update -y
+apt-get upgrade -y
+apt-get install -y python3-pip
+
+sudo -u ubuntu -i <<'EOF'
+echo export PATH=$PATH:$HOME/.local/bin >> ~/.bashrc
+python3 -m pip install --upgrade pip
+python3 -m pip install --user ansible
+EOF

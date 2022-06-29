@@ -99,7 +99,8 @@ resource "aws_key_pair" "mtc_auth" {
   public_key = tls_private_key.pk.public_key_openssh
   # public_key = "${file("terraform-demo.pub")}"    # Use if you have your own key
 
-  provisioner "local-exec" { # Create "myKey.pem" to your computer!!
+  provisioner "local-exec" { 
+    # Creating "myKey.pem" in your computer!!
     command = "echo '${tls_private_key.pk.private_key_pem}' > ~/.ssh/myKey.pem\nchmod 400 ~/.ssh/myKey.pem"
   }
 }
