@@ -95,11 +95,11 @@ resource "tls_private_key" "pk" {
 }
 
 resource "aws_key_pair" "mtc_auth" {
-  key_name   = "myKey"   # Create "myKey" to AWS
+  key_name   = "myKey" # Create "myKey" to AWS
   public_key = tls_private_key.pk.public_key_openssh
   # public_key = "${file("terraform-demo.pub")}"    # Use if you have your own key
 
-  provisioner "local-exec" { 
+  provisioner "local-exec" {
     # Creating "myKey.pem" in your computer!!
     command = "echo '${tls_private_key.pk.private_key_pem}' > ~/.ssh/myKey.pem\nchmod 400 ~/.ssh/myKey.pem"
   }
@@ -107,10 +107,10 @@ resource "aws_key_pair" "mtc_auth" {
 
 resource "aws_instance" "dev_node" {
   count = var.instance_count
-  
+
   #using datasources
   #ami                    = data.aws_ami.server_ami.id
-  ami                    = lookup(var.ami,var.aws_region)
+  ami                    = lookup(var.ami, var.aws_region)
   instance_type          = var.instance_type
   vpc_security_group_ids = [aws_security_group.mtc_sg.id]
   subnet_id              = aws_subnet.mtc_public_subnet.id
@@ -130,12 +130,11 @@ resource "aws_instance" "dev_node" {
   # PROVISIONER => used to configure ./ssh/config when creating the ec2 instance using template windows-ssh-config.tpl
   provisioner "local-exec" {
     command = templatefile("${var.host_os}-ssh-config.tpl", {
-      hostname     = self.public_dns,             # hostname of the ec2 instance
-      user         = "ubuntu",                    # default is "root"
+      hostname     = self.public_dns,               # hostname of the ec2 instance
+      user         = "ubuntu",                      # default is "root"
       identityfile = pathexpand("~/.ssh/myKey.pem") # path to the private key
     })
 
     interpreter = var.host_os == "linux" ? ["bash", "-c"] : ["Powershell", "-Command"] # default is ["powershell", "-Command"]
   }
-
 }
