@@ -1,0 +1,23 @@
+#--------------------------------------------------------------------
+#------------------------------------> terraform <-------------------
+terraform apply -auto-approve
+terraform state list | grep "aws_instance"
+terraform state show
+#------------------------------------> git/github <------------------
+git add .
+git commit -m ""
+git reflog
+git status
+#------------------------------------> AWS CLI <---------------------
+aws ec2 stop-instances --instance-ids InstanceId --profile default
+#------------------------------------> nano/edit <-------------------
+nano ~/.bash_history_template   #nano/edit/profile
+nano ~/.bash_history            #nano/edit/profile
+nano ~/.bashrc                  #nano/edit/profile
+nano ~/.bash_logout             #nano/edit/profile
+#------------------------------------> options <---------------------
+history | grep "nano"
+history | grep "git"
+history | grep "terraform"
+!
+history
