@@ -16,7 +16,7 @@ resource "null_resource" "change_instance_state" {
         echo "******* Action Performed *******"
     EOT
   }
-  # this setting will trigger script every time,change it something needed
+  # this setting will trigger the script every time var.instance-state change
   triggers = {
     last-modified-state = "${var.instance-state}"
   }
