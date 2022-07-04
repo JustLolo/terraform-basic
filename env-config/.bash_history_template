@@ -20,4 +20,4 @@ history | grep "nano"
 history | grep "git"
 history | grep "terraform"
 !
-history
+history $(wc -l < ~/.bash_history_template)
