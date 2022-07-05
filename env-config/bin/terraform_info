@@ -1,4 +1,0 @@
-#------------------------------------> terraform <-------------------
-terraform apply -auto-approve #
-terraform state list | grep "aws_instance" #
-terraform state show #

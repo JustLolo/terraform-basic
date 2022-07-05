@@ -1,5 +1,0 @@
-#------------------------------------> nano/edit <-------------------
-nano ~/.bash_history_template   # nano/edit/profile
-nano ~/.bash_history            # nano/edit/profile
-nano ~/.bashrc                  # nano/edit/profile
-nano ~/.bash_logout             # nano/edit/profile

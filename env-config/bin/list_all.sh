@@ -12,12 +12,11 @@ do
   if [ $file == "$SCRIPT_DIR/h.py" ] || [ $file == "$SCRIPT_DIR/list_all.sh" ] || [ $file == "$SCRIPT_DIR/README.md" ]; then
     continue
   fi
-  cat "$file"
+  # cat "$file"
+  $file
   echo ""
 done
 
-echo ""
-echo ""
 echo "Invoke individually"
 echo "t - terraform"
 echo "a - aws"
