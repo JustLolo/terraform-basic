@@ -1,4 +1,7 @@
 #!/bin/bash
+# parameter checking
+set -u
+
 echo "#------------------------------------> nano/edit <-------------------"
 echo "nano ~/.bash_history_template   # nano/edit/profile"
 echo "nano ~/.bash_history            # nano/edit/profile"

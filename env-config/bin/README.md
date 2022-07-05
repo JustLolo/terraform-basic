@@ -6,6 +6,12 @@ echo export PATH='$PATH':$(pwd) >> ~/.bashrc
 echo 'echo "---> press h key for help/tips" <---' >> ~/.bashrc
 chmod +x *
 
+echo 'alias h="h.py"' >> ~/.bash_aliases
+echo 'alias t="terraform_info.sh"' >> ~/.bash_aliases
+echo 'alias a="aws_info.sh"' >> ~/.bash_aliases
+echo 'alias n="environment_config.sh"' >> ~/.bash_aliases
+echo 'alias g="git_info.sh"' >> ~/.bash_aliases
+
 
 # # # Below is explained what they are doing
 

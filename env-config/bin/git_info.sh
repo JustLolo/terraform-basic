@@ -1,4 +1,7 @@
 #!/bin/bash
+# parameter checking
+set -u
+
 echo "#------------------------------------> git/github <------------------"
 echo "git add . #"
 echo 'git commit -m "descriptionHere" #'
