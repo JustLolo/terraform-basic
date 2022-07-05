@@ -14,3 +14,11 @@ cat .inputrc >> ~/.inputrc
 
 # # # Usage
 !history_number + space and you'll get the command without execution
+
+# # adding info to path
+# # # Needed for the personal scripts (./bin) I'll be using every day
+// added at the end
+PATH=$PATH:~/bin
+
+// added at the beginnig
+PATH=~/bin:$PATH
