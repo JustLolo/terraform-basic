@@ -1,15 +1,12 @@
 #!/bin/bash
-# checking parameters
-set -u
-
-# -----> TODO <--------------
-# fix command 3             |
-# Use a dictionary for this |
-# ---------------------------
-
+# echo "terraform apply -auto-approve"
+# echo "terraform state list | grep aws_instance"
+# echo "terraform state show #"
+# terraform_info.sh
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 cd $SCRIPT_DIR
 cd ../../
+
 
 if [ "$#" -lt 1 ]; then
     echo "----------------------------------"
@@ -32,7 +29,8 @@ if [ "$#" -eq 1 ]; then
     # command3="echo 'terraform state list | grep aws_instance'"
     # command6="echo 'terraform state show #'"
     
-
+    # fix command 3
+    # Use a dictionary for this
 
     command0="terraform apply -auto-approve"
     command3="terraform state list | grep aws_instance"
@@ -62,3 +60,52 @@ if [ "$#" -eq 1 ]; then
     }
     phew
 fi
+
+
+
+# somefunction () {
+#   echo $(echo "terraform apply -auto-approve")
+# }
+
+
+
+
+# phew() {
+#     # c="echo 'This is not really my super long winded command'"
+#     c="This is not really my super long winded command"
+
+#     read -p "Hit enter to run: $c"
+#     $c
+# }
+# phew
+
+
+
+
+
+
+
+
+
+
+
+
+
+# https://opensource.com/article/18/3/creating-bash-completion-script
+
+# _t_completions()
+# {
+#   COMPREPLY+=("tes1")
+#   COMPREPLY+=("anotherTest1")
+#   COMPREPLY+=("evenThoughtAnotherTest1")
+# }
+# complete -F _t_completions t
+
+# --------------------------------------
+
+# _t_completions()
+# {
+#   COMPREPLY=($(compgen -W "tes1 \nanotherTest1 \nevenThoughtAnotherTest1" "${COMP_WORDS[1]}"))
+# }
+
+# complete -F _t_completions t
