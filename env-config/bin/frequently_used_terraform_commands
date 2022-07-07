@@ -1,0 +1,3 @@
+terraform state show
+terraform state list | grep aws_instance
+terraform apply -auto-approve
