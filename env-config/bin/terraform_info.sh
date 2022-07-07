@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -i
 # checking parameters
 set -u
 
@@ -33,7 +33,7 @@ if [ "$#" -eq 1 ]; then
     # command6="echo 'terraform state show #'"
     
 
-
+    
     command0="terraform apply -auto-approve"
     command3="terraform state list | grep aws_instance"
     command6="terraform state show"
@@ -45,8 +45,9 @@ if [ "$#" -eq 1 ]; then
 
     if [ "$1" -eq 3 ]; then
         # fix this, it's having and error, it's due to the existence of several instances
-        read -p "Hit enter to run: $command3"
-        $command3
+        read -p "enter to run -> $command3 " parameter
+        # there are some warning about using eval but for this case will work properly
+        eval $command3 $parameter
     fi
 
     if [ "$1" -eq 6 ]; then
