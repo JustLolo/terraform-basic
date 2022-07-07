@@ -1,7 +1,7 @@
 # Folder for environment configuration commands.
 Just to make mine/your life easier
 
-# # history template for most used commands
+## history template for most used commands
 
 # # # copy .bash_history_template in $HOME aka ~/
 # # # command:
