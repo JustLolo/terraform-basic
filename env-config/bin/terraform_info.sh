@@ -11,6 +11,10 @@ SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 cd $SCRIPT_DIR
 cd ../../
 
+declare -A command=( [0]="terraform apply -auto-approve"\
+                     [1]="terraform state list | grep aws_instance"\
+                     [2]="terraform state show")
+
 if [ "$#" -lt 1 ]; then
     echo "----------------------------------"
     echo "0 parameters passed to this script"
@@ -24,42 +28,12 @@ if [ "$#" -eq 1 ]; then
     echo "----------------------------------"
     echo "1 parameters passed to this script"
     echo "----------------------------------"
-
-    echo "this was the parameter passed: $1"
-
+    
     # --> safe mode <--
     # command0="echo 'terraform apply -auto-approve'"
     # command3="echo 'terraform state list | grep aws_instance'"
     # command6="echo 'terraform state show #'"
-    
 
-    
-    command0="terraform apply -auto-approve"
-    command3="terraform state list | grep aws_instance"
-    command6="terraform state show"
-
-    if [ "$1" -eq 0 ]; then
-        read -p "Hit enter to run: $command0"
-        $command0
-    fi
-
-    if [ "$1" -eq 3 ]; then
-        # fix this, it's having and error, it's due to the existence of several instances
-        read -p "enter to run -> $command3 " parameter
-        # there are some warning about using eval but for this case will work properly
-        eval $command3 $parameter
-    fi
-
-    if [ "$1" -eq 6 ]; then
-        read -p "Hit enter to run: $command6"
-        $command6
-    fi
-
-    phew() {
-        ca3="echo 'This is not really my super long winded command'"
-        # c="This is not really my super long winded command"
-        read -p "Hit enter to run: $ca3"
-        $ca3
-    }
-    phew
+    read -p "Hit enter to run: ${command[$1]} " parameter
+    eval ${command[$1]} $parameter
 fi
