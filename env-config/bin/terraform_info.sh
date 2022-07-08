@@ -1,23 +1,29 @@
-#!/bin/bash -i
+#!/usr/bin/env bash
 # checking parameters
 set -u
-
-# -----> TODO <--------------
-# fix command 3             |
-# Use a dictionary for this |
-# ---------------------------
-
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 cd $SCRIPT_DIR
 cd ../../
+file="./env-config/bin/commands_terraform"
+
+# try to load part of the environment using -> !/bin/bash -i 
+# because I can chain commands
+
+# filling the dictionary
+declare -A command
+# -n "$line" -> added due to the issue that doesn't show the last line
+while IFS= read -r line || [ -n "$line" ]; do
+    commandKey="$(echo "$line" | cut -d " " -f 1)"
+    commandValue="$(echo "$line" | cut -d " " -f2-)"
+    command[$commandKey]=$commandValue
+done < "$file"
 
 if [ "$#" -lt 1 ]; then
-    echo "----------------------------------"
-    echo "0 parameters passed to this script"
-    echo "----------------------------------"
-    echo "0 -> terraform apply -auto-approve"
-    echo "3 -> terraform state list | grep aws_instance"
-    echo "6 -> terraform state show #"
+    echo "REMEMBER: You can add parameters or pipelines"
+    echo ""
+    for key in "${!command[@]}"
+        do echo "$key - ${command[$key]}"
+    done
 fi
 
 if [ "$#" -eq 1 ]; then
@@ -25,41 +31,6 @@ if [ "$#" -eq 1 ]; then
     echo "1 parameters passed to this script"
     echo "----------------------------------"
 
-    echo "this was the parameter passed: $1"
-
-    # --> safe mode <--
-    # command0="echo 'terraform apply -auto-approve'"
-    # command3="echo 'terraform state list | grep aws_instance'"
-    # command6="echo 'terraform state show #'"
-    
-
-    
-    command0="terraform apply -auto-approve"
-    command3="terraform state list | grep aws_instance"
-    command6="terraform state show"
-
-    if [ "$1" -eq 0 ]; then
-        read -p "Hit enter to run: $command0"
-        $command0
-    fi
-
-    if [ "$1" -eq 3 ]; then
-        # fix this, it's having and error, it's due to the existence of several instances
-        read -p "enter to run -> $command3 " parameter
-        # there are some warning about using eval but for this case will work properly
-        eval $command3 $parameter
-    fi
-
-    if [ "$1" -eq 6 ]; then
-        read -p "Hit enter to run: $command6"
-        $command6
-    fi
-
-    phew() {
-        ca3="echo 'This is not really my super long winded command'"
-        # c="This is not really my super long winded command"
-        read -p "Hit enter to run: $ca3"
-        $ca3
-    }
-    phew
+    read -p "Enter to run -> ${command[$1]} " parameter
+    eval ${command[$1]} $parameter
 fi

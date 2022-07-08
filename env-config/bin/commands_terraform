@@ -1,0 +1,5 @@
+1 terraform state show
+2 terraform state list | grep aws_instance
+3 terraform apply -auto-approve
+v terraform --version
+echo echo 'just testing'
