@@ -1,12 +1,10 @@
 #!/bin/bash -i
-# checking parameters
-set -u
 
-# -----> TODO <--------------
-# fix command 3             |
-# Use a dictionary for this |
-# ---------------------------
+# We don't want the script writes in the history
+set +o history
 
+# checking parameters, modified, setting this will give me some problems checking 'e'
+# set -u
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 cd $SCRIPT_DIR
 cd ../../

@@ -1,0 +1,5 @@
+ht nano ~/.bash_history_template
+h nano ~/.bash_history
+env nano ~/.bashrc
+lo nano ~/.bash_logout
+al nano ~/.bash_aliases
