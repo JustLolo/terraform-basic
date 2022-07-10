@@ -1,7 +1,7 @@
-#!/bin/bash --norc
+#!/bin/bash -i
 
-# checking parameters
-set -u
+# checking parameters, modified, setting this will give me some problems checking 'e'
+# set -u
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 cd $SCRIPT_DIR
 cd ../../
@@ -22,6 +22,7 @@ while IFS= read -r line || [ -n "$line" ]; do
 done < "$file"
 
 if [ "$#" -lt 1 ]; then
+    echo "REMEMBER: -e for execution without user confirmation"
     echo "REMEMBER: You can add parameters or pipelines"
     echo ""
     for key in "${!command[@]}"
@@ -36,4 +37,13 @@ if [ "$#" -eq 1 ]; then
 
     read -p "Enter to run -> ${command[$1]} " parameter
     eval ${command[$1]} $parameter
+fi
+
+if [[ "$#" -eq 2 ]]; then
+    if [[ "$2" -eq "-e" ]]; then
+        # "e" stands for execute without confirmation
+        echo "${command[$1]} --> executing"
+        echo ""
+        eval ${command[$1]}
+    fi
 fi
