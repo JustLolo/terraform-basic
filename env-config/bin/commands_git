@@ -2,3 +2,4 @@ a git add .
 c git commit -m 
 r git reflog
 s git status
+b git branch
