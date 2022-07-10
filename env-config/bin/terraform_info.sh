@@ -1,4 +1,5 @@
-#!/usr/bin/env bash
+#!/bin/bash --norc
+
 # checking parameters
 set -u
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
@@ -7,6 +8,8 @@ cd ../../
 file="./env-config/bin/commands_terraform"
 
 # try to load part of the environment using -> !/bin/bash -i 
+# this is nothing #!/usr/bin/env bash
+# --rcfile file
 # because I can chain commands
 
 # filling the dictionary

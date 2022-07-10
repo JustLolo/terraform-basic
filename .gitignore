@@ -9,6 +9,8 @@
 *.tfstate
 *.tfstate.*
 
+**/env-config/bin/bashrc_init_script.sh
+
 # Crash log files
 crash.log
 
