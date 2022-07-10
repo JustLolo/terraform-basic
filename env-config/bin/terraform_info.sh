@@ -1,5 +1,8 @@
 #!/bin/bash -i
 
+# We don't want the script writes in the history
+set +o history
+
 # checking parameters, modified, setting this will give me some problems checking 'e'
 # set -u
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
@@ -42,8 +45,7 @@ fi
 if [[ "$#" -eq 2 ]]; then
     if [[ "$2" -eq "-e" ]]; then
         # "e" stands for execute without confirmation
-        echo "${command[$1]} --> executing"
-        echo ""
+        # echo "${command[$1]}"
         eval ${command[$1]}
     fi
 fi

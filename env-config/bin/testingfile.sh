@@ -1,8 +1,8 @@
 #!/bin/bash
-# echo "terraform apply -auto-approve"
-# echo "terraform state list | grep aws_instance"
-# echo "terraform state show #"
-# terraform_info.sh
+
+# We don't want the script writes in the history
+set +o history
+
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 cd $SCRIPT_DIR
 cd ../../
