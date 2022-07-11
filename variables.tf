@@ -1,12 +1,3 @@
-variable "instance-state" {
-  type = string
-  #options we have
-  # default = "keep"
-  default = "stop"
-  # default = "start"
-  # default = "reboot"
-}
-
 variable "instance_count" {
   default = "1"
 }
@@ -39,11 +30,21 @@ variable "ami" {
   }
 }
 
+variable "instance-state" {
+  type = string
+  #options we have
+  default = "keep"
+  # default = "stop"
+  # default = "start"
+  # default = "reboot"
+}
+
 variable "instance-state-map" {
   type = map(any)
   default = {
     "start"  = "start-instances"
     "stop"   = "stop-instances"
     "reboot" = "reboot-instances"
+    
   }
 }
