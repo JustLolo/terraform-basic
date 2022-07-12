@@ -4,7 +4,7 @@ resource "local_file" "generate_ansible_inventory" {
   content = templatefile("${path.module}/script-ansible-inventory-creator.tfpl", {
       inventory_tag         = var.instance_tags,        # hostname of the ec2 instance
       # inventory_ip          = aws_instance.dev_node.*.public_ip
-      inventory_ip          = aws_instance.dev_node.*.public_dns
+      inventory_ip          = aws_instance.dev_node.*.public_ip
     })
   filename = "${path.module}/ansible/inventory"
 
