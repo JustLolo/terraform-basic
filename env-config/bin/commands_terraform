@@ -7,3 +7,4 @@ li terraform state list | grep aws_instance
 s terraform state show
 v terraform --version
 o terraform output
+# cd cd ~/terraform-basic

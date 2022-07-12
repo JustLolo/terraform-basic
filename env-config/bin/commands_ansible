@@ -1,4 +1,6 @@
-ansible -i inventory dev -m ping -u ubuntu
-ansible dev -m ping -u ubuntu
-ansible dev -a "free -h" -u ubuntu
-ansible dev -a "date" -u ubuntu
+cping ansible dev -m ping -u ubuntu
+cfree ansible dev -a "free -h" -u ubuntu
+cdate ansible dev -a "date" -u ubuntu
+pt ansible-playbook playbooks_dir/testing-playbook.yml 
+pgit ansible-playbook playbooks_dir/install-git.yml
+# cd cd ~/terraform-basic/ansible
