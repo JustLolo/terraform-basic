@@ -1,0 +1,5 @@
+# Don't modify this file, it's handle/created by terraform
+# check ../script_ansible.tf for more info
+[dev]
+54.202.78.249
+52.27.85.149
