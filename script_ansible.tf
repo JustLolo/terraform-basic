@@ -19,7 +19,7 @@ resource "local_file" "generate_ansible_playbook_install_git" {
   content = templatefile("${path.module}/script-ansible-playbook-install-git.tfpl", {
       inventory_tag         = var.instance_tags        # hostname of the ec2 instance
     })
-  filename = "${path.module}/ansible/playbooks_dir/install-git"
+  filename = "${path.module}/ansible/playbooks_dir/install-git.yml"
 
   depends_on = [
     aws_instance.dev_node
