@@ -1,5 +1,5 @@
 variable "instance_count" {
-  default = "1"
+  default = "2"
 }
 
 variable "instance_type" {
@@ -7,10 +7,12 @@ variable "instance_type" {
   default = "t2.micro"
 }
 
+# can't have weird caracter like '-', ansible will have some issues with the inventory
 variable "instance_tags" {
   type    = string
-  default = "dev-node"
+  default = "dev"
 }
+
 
 variable "aws_region" {
   default = "us-west-2"

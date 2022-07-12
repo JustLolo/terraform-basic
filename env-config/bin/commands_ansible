@@ -1,0 +1,4 @@
+ansible -i inventory dev -m ping -u ubuntu
+ansible dev -m ping -u ubuntu
+ansible dev -a "free -h" -u ubuntu
+ansible dev -a "date" -u ubuntu
