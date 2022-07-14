@@ -103,6 +103,12 @@ resource "aws_key_pair" "mtc_auth" {
     # Creating "myKey.pem" in your computer!!
     command = "echo '${tls_private_key.pk.private_key_pem}' > ~/.ssh/myKey.pem\nchmod 400 ~/.ssh/myKey.pem"
   }
+
+  provisioner "local-exec" {
+    # deleting "myKey.pem" if I get rid of everything!!
+    when    = destroy
+    command = "chmod 777 ~/.ssh/myKey.pem\nrm ~/.ssh/myKey.pem"
+  }
 }
 
 resource "aws_instance" "dev_node" {

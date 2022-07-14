@@ -1,4 +1,0 @@
-[${inventory_tag}]
-%{ for ip in inventory_ip ~}
-${ip}
-%{ endfor ~}

@@ -1,7 +1,6 @@
 resource "local_file" "generate_ansible_inventory" {
 
-
-  content = templatefile("${path.module}/script-ansible.tfpl", {
+  content = templatefile("${path.module}/script-ansible-inventory-creator.tfpl", {
       inventory_tag         = var.instance_tags,        # hostname of the ec2 instance
       # inventory_ip          = aws_instance.dev_node.*.public_ip
       inventory_ip          = aws_instance.dev_node.*.public_dns
@@ -11,11 +10,17 @@ resource "local_file" "generate_ansible_inventory" {
   depends_on = [
     aws_instance.dev_node
   ]
-  
-  # this setting will trigger the script every time var.instance-state change
-  # triggers = {
-  #   added-or-removed-instances = "${aws_instance.dev_node.*.public_ip}"
-  # }
 }
 
 
+resource "local_file" "generate_ansible_playbook_install_git" {
+
+  content = templatefile("${path.module}/script-ansible-playbook-install-git.tfpl", {
+      inventory_tag         = var.instance_tags        # hostname of the ec2 instance
+    })
+  filename = "${path.module}/ansible/playbooks_dir/install-git"
+
+  depends_on = [
+    aws_instance.dev_node
+  ]
+}
