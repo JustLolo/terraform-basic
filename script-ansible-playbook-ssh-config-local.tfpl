@@ -1,0 +1,25 @@
+# Don't modify this file, it's handle/created by terraform
+# check ../script_ansible.tf for more info 
+- hosts: localhost
+  connection: local
+  become: yes
+  name: Configuring Local Host
+
+  tasks:
+  - name: Install python storm for ~/.ssh/config management
+    pip:
+      name: stormssh
+
+  - name: adding created instances to ~/.ssh/config
+    become_user: ${current_user}
+    community.general.ssh_config:
+      user: ${current_user}
+      remote_user: ubuntu
+      host: "{{ item.name }}"
+      hostname: "{{ item.ip }}"
+      identity_file: "$HOME/.ssh/id_rsa"
+      state: present
+    loop:
+      %{ for Name, public_ip in dict_Name_to_ip ~}
+      - { name: '${Name}', ip: '${public_ip}' }
+      %{ endfor ~}
