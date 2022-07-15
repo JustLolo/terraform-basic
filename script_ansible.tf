@@ -1,3 +1,4 @@
+# Generating ansible inventory
 resource "local_file" "generate_ansible_inventory" {
 
   content = templatefile("${path.module}/script-ansible-inventory-creator.tfpl", {
@@ -12,7 +13,7 @@ resource "local_file" "generate_ansible_inventory" {
   ]
 }
 
-
+# generating ansible playbook install_git.yml
 resource "local_file" "generate_ansible_playbook_install_git" {
 
   content = templatefile("${path.module}/script-ansible-playbook-install-git.tfpl", {

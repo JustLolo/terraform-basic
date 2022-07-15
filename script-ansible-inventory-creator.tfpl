@@ -1,9 +1,6 @@
-- hosts: ${inventory_tag}
-  become: yes
-
-  tasks:
-  - name: Install git
-    apt:
-      name: git
-      state: present
-      update_cache: yes
+# Don't modify this file, it's handle/created by terraform
+# check ../script_ansible.tf for more info
+[${inventory_tag}]
+%{ for ip in inventory_ip ~}
+${ip}
+%{ endfor ~}
