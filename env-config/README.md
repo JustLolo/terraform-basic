@@ -1,6 +1,14 @@
 # Folder for environment configuration commands.
 Just to make mine/your life easier
 
+## allow the user to run sudo withtout asking for a password
+-> Run the following command
+sudo visudo
+
+-> Add the following to the bottom of the file and substitute 'username'
+-> for your own linux username
+augartep92     ALL=(ALL) NOPASSWD:ALL
+
 ## history template for most used commands
 
 ### copy .bash_history_template in $HOME aka ~/

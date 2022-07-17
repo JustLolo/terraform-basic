@@ -132,16 +132,4 @@ resource "aws_instance" "dev_node" {
   tags = {
     Name = "${var.instance_tags}-${count.index + 1}"
   }
-
-  # PROVISIONER => used to configure ./ssh/config when creating the ec2 instance using template windows-ssh-config.tpl
-  provisioner "local-exec" {
-    command = templatefile("${var.host_os}-ssh-config.tpl", {
-      hostname     = "${var.instance_tags}-${count.index + 1}",# hostname of the ec2 instance
-      host_ip      = self.public_ip,
-      user         = "ubuntu",                      # default is "root"
-      identityfile = pathexpand("~/.ssh/myKey.pem") # path to the private key
-    })
-
-    interpreter = var.host_os == "linux" ? ["bash", "-c"] : ["Powershell", "-Command"] # default is ["powershell", "-Command"]
-  }
 }

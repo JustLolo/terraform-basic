@@ -1,0 +1,31 @@
+- hosts: localhost
+  connection: local
+  become: yes
+  name: Configuring Local Host
+# https://www.middlewareinventory.com/blog/run-ansible-playbook-locally/
+
+  tasks:
+  # - name: Ensure python-storm (used for managing ssh config file) is installed
+  #   # delegate_to: localhost
+  #   apt:
+  #     name: python3-storm
+  #     state: absent
+  #     update_cache: yes
+  
+  - name: Install python storm for ~/.ssh/config management
+    pip:
+      name: stormssh
+
+  
+  - name: adding created instances to ~/.ssh/config
+    become_user: augartep92
+    community.general.ssh_config:
+      user: augartep92
+      remote_user: ubuntu
+      host: "{{ item.name }}"
+      hostname: "{{ item.ip }}"
+      identity_file: "$HOME/.ssh/id_rsa"
+      state: present
+    loop:
+      - { name: 'dev-1', ip: '10.25.36.24' }
+      - { name: 'dev-2', ip: '10.25.36.45' }
