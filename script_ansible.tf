@@ -65,7 +65,7 @@ resource "null_resource" "update_ssh_config" {
     interpreter = ["/bin/bash", "-c"]
 
     command = <<EOT
-        cd ansible
+        cd ./ansible
         ansible-playbook playbooks_dir/ssh-config-local.yml
     EOT
   }
