@@ -47,6 +47,6 @@ variable "instance-state-map" {
     "start"  = "start-instances"
     "stop"   = "stop-instances"
     "reboot" = "reboot-instances"
-    
+
   }
 }

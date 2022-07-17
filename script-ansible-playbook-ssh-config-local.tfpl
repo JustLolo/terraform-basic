@@ -10,16 +10,15 @@
     pip:
       name: stormssh
 
-  - name: adding created instances to ~/.ssh/config
+  %{ for i in range (length(list_Name_ip_state[0])) ~}
+
+  - name: adding instance ${list_Name_ip_state[0][i]} to ~/.ssh/config
     become_user: ${current_user}
     community.general.ssh_config:
       user: ${current_user}
       remote_user: ubuntu
-      host: "{{ item.name }}"
-      hostname: "{{ item.ip }}"
+      host: "${list_Name_ip_state[0][i]}"
+      hostname: "${list_Name_ip_state[1][i]}"
       identity_file: "$HOME/.ssh/id_rsa"
-      state: present
-    loop:
-      %{ for Name, public_ip in dict_Name_to_ip ~}
-      - { name: '${Name}', ip: '${public_ip}' }
-      %{ endfor ~}
+      state: ${ list_Name_ip_state[2][i] == "running" || list_Name_ip_state[2][i] == "pending" || list_Name_ip_state[2][i] == "rebooting" ? "present" : "absent" }
+    %{ endfor ~}
