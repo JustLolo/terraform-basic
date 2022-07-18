@@ -99,15 +99,30 @@ resource "aws_key_pair" "mtc_auth" {
   public_key = tls_private_key.pk.public_key_openssh
   # public_key = "${file("terraform-demo.pub")}"    # Use if you have your own key
 
+  # Saving public and private key in your computer
   provisioner "local-exec" {
-    # Creating "myKey.pem" in your computer!!
-    command = "echo '${tls_private_key.pk.private_key_pem}' > ~/.ssh/myKey.pem\nchmod 400 ~/.ssh/myKey.pem"
+    on_failure  = fail
+    interpreter = ["/bin/bash", "-c"]
+    command     = <<EOT
+        echo '${tls_private_key.pk.private_key_pem}' > ~/.ssh/myKey.pem
+        chmod 400 ~/.ssh/myKey.pem
+
+        echo '${tls_private_key.pk.public_key_openssh}' > ~/.ssh/myKey.pub
+        chmod 400 ~/.ssh/myKey.pub
+    EOT
   }
 
+  # deleting public and private key from your computer
   provisioner "local-exec" {
-    # deleting "myKey.pem" if I get rid of everything!!
-    when    = destroy
-    command = "chmod 777 ~/.ssh/myKey.pem\nrm ~/.ssh/myKey.pem"
+    when        = destroy
+    interpreter = ["/bin/bash", "-c"]
+    command     = <<EOT
+        chmod 777 ~/.ssh/myKey.pem
+        rm ~/.ssh/myKey.pem
+
+        chmod 777 ~/.ssh/myKey.pub
+        rm ~/.ssh/myKey.pub
+    EOT
   }
 }
 
