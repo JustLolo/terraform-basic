@@ -20,5 +20,9 @@
       host: "${list_Name_ip_state[0][i]}"
       hostname: "${list_Name_ip_state[1][i]}"
       identity_file: "$HOME/.ssh/id_rsa"
-      state: ${ list_Name_ip_state[2][i] == "running" || list_Name_ip_state[2][i] == "pending" || list_Name_ip_state[2][i] == "rebooting" ? "present" : "absent" }
+      state: ${ list_Name_ip_state[2][i] == "running" || list_Name_ip_state[2][i] == "pending" || list_Name_ip_state[2][i] == "rebooting" ? replace(join("",["\"{{ ", tostring(list_Name_ip_state[0][i]), "-state | default('present') }}\""]),"-","_") : replace(join("",["\"{{ ", tostring(list_Name_ip_state[0][i]), "-state | default('absent') }}\""]),"-","_") }
+    when: 
+    %{ for instance_tag in list_Name_ip_state[0] ~}
+    - ${replace(join("", [tostring(instance_tag), "-state"]),"-", "_")} is undefined or ${replace(join("", [list_Name_ip_state[0][i], "-state"]),"-", "_")} is defined
+    %{ endfor ~}
     %{ endfor ~}

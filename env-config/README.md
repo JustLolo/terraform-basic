@@ -30,3 +30,6 @@ PATH=$PATH:~/bin
 
 // added at the beginnig
 PATH=~/bin:$PATH
+
+## packages needed
+sudo apt install graphviz

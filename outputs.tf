@@ -5,3 +5,7 @@ output "dev_ip" {
 output "dev_public_dns" {
   value = aws_instance.dev_node.*.public_dns
 }
+
+output "dev_tags" {
+  value = aws_instance.dev_node.*.tags.Name
+}
