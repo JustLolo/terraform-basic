@@ -7,4 +7,6 @@ li terraform state list | grep aws_instance
 s terraform state show
 v terraform --version
 o terraform output
+g terraform graph | dot -Tsvg > graph.svg
+gd terraform graph -type=plan-destroy | dot -Tsvg > graphDestroy.svg
 # cd cd ~/terraform-basic
