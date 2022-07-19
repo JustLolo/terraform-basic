@@ -101,3 +101,17 @@ resource "null_resource" "delete_ssh_config" {
     local_file.generate_ansible_ssh_config_local
   ]
 }
+
+
+# generating ansible playbook ssh_config_know_host_local.yml
+resource "local_file" "generate_ansible_ssh_config_know_host_local" {
+  content = templatefile("${path.module}/script_ansible_ssh_config_know_host_local.tfpl", {
+    # list_Name_ip_state = [aws_instance.dev_node.*.tags.Name, aws_instance.dev_node.*.public_ip, aws_instance.dev_node.*.instance_state]
+    # current_user       = data.external.current_user.result.username
+  })
+  filename = "${path.module}/ansible/playbooks_dir/ssh_config_know_host_local.yml"
+
+  depends_on = [
+    aws_instance.dev_node
+  ]
+}

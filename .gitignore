@@ -10,6 +10,8 @@
 *.tfstate.*
 
 **/env-config/bin/bashrc_init_script.sh
+**/ansible/test.yml
+**/ansible/playbooks_dir/test.yml
 
 # Crash log files
 crash.log
@@ -33,3 +35,4 @@ override.tf.json
 
 # Include tfplan files to ignore the plan output of command: terraform plan -out=tfplan
 # example: *tfplan*
+ansible/test.yml
