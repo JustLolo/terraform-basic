@@ -13,6 +13,10 @@
 **/ansible/test.yml
 **/ansible/playbooks_dir/test.yml
 
+# just for testing purposes
+# **/ansible-testing/**
+# *script_ansible_testing.tf
+
 # Crash log files
 crash.log
 

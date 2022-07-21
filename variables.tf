@@ -1,5 +1,13 @@
 variable "instance_count" {
-  default = "2"
+  default = "1"
+}
+
+variable "types_of_instances" {
+  type = map(object({ name = string, OS = string, amount = number }))
+  default = {
+    app      = { name = "app", OS = "centos", amount = 1 }
+    database = { name = "database", OS = "centos", amount = 1 }
+  }
 }
 
 variable "instance_type" {
@@ -29,6 +37,11 @@ variable "ami" {
     # Ubuntu 20.04 LTS
     "us-west-2" = "ami-0ddf424f81ddb0720"
     "us-east-2" = "ami-0b4fa084a1e7e6f5a"
+
+    #the name says everything
+    "CentOS7-us-west-2"  = "ami-0686851c4e7b1a8e1"
+    "Amazon_Linux_2_AMI" = "ami-098e42ae54c764c35"
+
   }
 }
 

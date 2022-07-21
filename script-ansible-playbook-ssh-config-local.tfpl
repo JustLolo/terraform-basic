@@ -16,7 +16,8 @@
     become_user: ${current_user}
     community.general.ssh_config:
       user: ${current_user}
-      remote_user: ubuntu
+      remote_user: centos
+      #remote_user: ubuntu
       host: "${list_Name_ip_state[0][i]}"
       hostname: "${list_Name_ip_state[1][i]}"
       identity_file: "$HOME/.ssh/myKey.pem"

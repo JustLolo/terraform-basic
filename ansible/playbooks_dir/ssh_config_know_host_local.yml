@@ -1,0 +1,18 @@
+- hosts: all
+  connection: local
+  gather_facts: False
+  name: "accept ssh fingerprint located in inventory automatically"
+
+  tasks:
+  - command: ssh-keyscan "{{item}}"
+    register: known_host_keys
+    with_items: "{{inventory_hostname}}"
+    tags:
+      - "ssh"
+
+  - name: Add ssh keys to know hosts
+    known_hosts:
+      name: "{{item.item}}"
+      key: "{{item.stdout}}"
+      path: ~/.ssh/known_hosts
+    with_items: "{{known_host_keys.results}}"
