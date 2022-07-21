@@ -2,7 +2,12 @@ variable "instance_count" {
   default = "1"
 }
 
-variable "types_of_instances" {
+variable "recreate_instances_after_apply" {
+  type    = bool
+  default = false
+}
+
+variable "instances" {
   type = map(object({ name = string, OS = string, amount = number }))
   default = {
     app      = { name = "app", OS = "centos", amount = 1 }
