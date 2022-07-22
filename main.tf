@@ -146,7 +146,7 @@ resource "aws_instance" "instance" {
   }
 
   tags = {
-    Name = "${each.value.name}"
+    Name = "${each.key}"
     # Name = "${var.instance_tags}-${count.index + 1}"
   }
 

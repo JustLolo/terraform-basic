@@ -2,18 +2,71 @@ variable "instance_count" {
   default = "1"
 }
 
+variable "instances" {
+  type = map(object({ type = string, OS = string, amount = number }))
+  # type = map(object({ type = local.instance_type_dict, OS = string, amount = number }))
+  default = {
+    app-1    = { type = "webapp", OS = "centos", amount = 1 }
+    app-2    = { type = "webapp", OS = "centos", amount = 1 }
+    database = { type = "database", OS = "centos", amount = 1 }
+    # app-1      = { name = "app", OS = "centos", amount = 1 }
+    # app-2      = { name = "app", OS = "centos", amount = 1 }
+    # database = { name = "database", OS = "centos", amount = 1 }
+
+  }
+
+  validation {
+    condition = alltrue([
+      for instance in var.instances :
+      instance.type == "database" || instance.type == "webapp"
+    ])
+    error_message = "the instance type has to be either \"database\" or \"webapp\""
+  }
+}
+
 variable "recreate_instances_after_apply" {
   type    = bool
   default = false
 }
 
-variable "instances" {
-  type = map(object({ name = string, OS = string, amount = number }))
-  default = {
-    app      = { name = "app", OS = "centos", amount = 1 }
-    database = { name = "database", OS = "centos", amount = 1 }
+locals {
+  # instance_type_dict = {
+  #   webapp   = { type = "webapp", ASG = true, OS = "centos" }
+  #   database = { type = "database", ASG = false, OS = "centos" }
+  # }
+  webapps_instances = {
+    for webapp, value in var.instances : webapp => value if value.type == "webapp"
+  }
+
+  database_instances = {
+    for database, value in var.instances : database => value if value.type == "database"
   }
 }
+
+
+
+# locals {
+#   # type = map(object({ name = string, OS = string, amount = number }))
+#   # type = map(object({ type = string, ASG = bool, OS = string }))
+#   default = {
+
+
+
+#     # app      = { name = "app", OS = "centos", amount = 1 }
+#     # database = { name = "database", OS = "centos", amount = 1 }
+
+#   }
+# }
+
+# variable "instances" {
+#   # type = map(object({ name = string, OS = string, amount = number }))
+#   type = map(object({ type = local.instance_type_dict, OS = string, amount = number }))
+#   default = {
+#     # app      = { name = "app", OS = "centos", amount = 1 }
+#     # database = { name = "database", OS = "centos", amount = 1 }
+
+#   }
+# }
 
 variable "instance_type" {
   type    = string
