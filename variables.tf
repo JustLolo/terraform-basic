@@ -1,15 +1,17 @@
 locals {
   # don't change this unless you want to add another kind of instance
   instance_functionality_list = ["webapp", "database"]
+  instance_available_os       = ["ubuntu-20.04", "centos7"]
 }
 
 variable "instances" {
   type = map(object({ type = string, OS = string, amount = number }))
   default = {
-    # when you add an instance make sure it's type exists in local.instance_functionality_list
-    app-1    = { type = "webapp", OS = "centos", amount = 1 }
-    app-2    = { type = "webapp", OS = "centos", amount = 1 }
-    database = { type = "database", OS = "centos", amount = 1 }
+    # when you add an instance make sure its type exists in local.instance_functionality_list
+    # if it isn't terraform will raise and error
+    app-1    = { type = "webapp", OS = "ubuntu-20.04", amount = 1 }
+    app-2    = { type = "webapp", OS = "centos7", amount = 1 }
+    database = { type = "database", OS = "centos7", amount = 1 }
   }
 }
 
@@ -36,6 +38,8 @@ locals {
       for instance_name, value in var.instances : instance_name => value if value.type == instance_functionality
     }
   }
+
+  instances_flatten = flatten([for instance_functionality in local.instances : instance_functionality])
 }
 
 variable "instance_type" {
@@ -59,15 +63,18 @@ variable "host_os" {
   default = "linux"
 }
 
+# add here your AMIs, based on the pattern => "OS_region" = "ami-someamiid"
 variable "ami" {
   type = map(any)
   default = {
     # Ubuntu 20.04 LTS
-    "us-west-2" = "ami-0ddf424f81ddb0720"
-    "us-east-2" = "ami-0b4fa084a1e7e6f5a"
+    "ubuntu-20.04_us-west-2" = "ami-0ddf424f81ddb0720"
+    "ubuntu-20.04_us-east-2" = "ami-0b4fa084a1e7e6f5a"
 
-    #the name says everything
-    "CentOS7-us-west-2"  = "ami-0686851c4e7b1a8e1"
+    # CentOS
+    "centos7_us-west-2" = "ami-0686851c4e7b1a8e1"
+
+    # Do this V
     "Amazon_Linux_2_AMI" = "ami-098e42ae54c764c35"
 
   }
