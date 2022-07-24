@@ -3,8 +3,6 @@ variable "instance_count" {
   default = "1"
 }
 
-# it has to be a variable instead of a local bc of a missing feature
-# open issue here: https://github.com/hashicorp/terraform/issues/25609
 locals {
   # don't change this unless you want to add another kind of instance
   instance_functionality_list = ["webapp", "database"]
@@ -13,8 +11,9 @@ locals {
 variable "instances" {
   type = map(object({ type = string, OS = string, amount = number }))
   default = {
-    app-1 = { type = "webapp", OS = "centos", amount = 1 }
-    # app-2    = { type = "webapp", OS = "centos", amount = 1 }
+    # when you add an instance make sure it's type exists in local.instance_functionality_list
+    app-1    = { type = "webapp", OS = "centos", amount = 1 }
+    app-2    = { type = "webapp", OS = "centos", amount = 1 }
     database = { type = "database", OS = "centos", amount = 1 }
   }
 }
@@ -42,6 +41,11 @@ locals {
   #   database = { type = "database", ASG = false, OS = "centos" }
   # }
 
+  instances = {
+    for instance_functionality in local.instance_functionality_list : instance_functionality => {
+      for instance_name, value in var.instances : instance_name => value if value.type == instance_functionality
+    }
+  }
 
 
   webapp_instances = {

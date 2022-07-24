@@ -137,7 +137,7 @@ resource "aws_instance" "instance" {
 
   # user_data = file("userdata.tpl")
   # I'll be testing, so, I'll recreate the instance every time i run terraform apply
-  user_data                   = "echo ${timestamp()} &> /dev/null "
+  user_data                   = var.recreate_instances_after_apply ? "echo ${timestamp()} &> /dev/null " : ""
   user_data_replace_on_change = var.recreate_instances_after_apply
 
   root_block_device {
