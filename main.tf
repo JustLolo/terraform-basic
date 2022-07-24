@@ -149,37 +149,35 @@ resource "aws_instance" "instance" {
     Name = "${each.key}"
     # Name = "${var.instance_tags}-${count.index + 1}"
   }
-
-
-
-  # resource "aws_instance" "dev_node" {
-  #   count = var.instance_count
-
-
-  #   #using datasources
-  #   # ami                    = data.aws_ami.server_ami.id
-  #   # using map created by me
-  #   # ami                    = lookup(var.ami, var.aws_region)
-
-  #   ami                    = lookup(var.ami, "CentOS7-us-west-2")
-  #   instance_type          = var.instance_type
-  #   vpc_security_group_ids = [aws_security_group.mtc_sg.id]
-  #   subnet_id              = aws_subnet.mtc_public_subnet.id
-  #   key_name               = aws_key_pair.mtc_auth.id
-
-  #   # user_data = file("userdata.tpl")
-  #   # I'll be testing, so, I'll recreate the instance every time i run terraform apply
-  #   user_data                   = "echo ${timestamp()} &> /dev/null "
-  #   user_data_replace_on_change = true
-
-  #   root_block_device {
-  #     volume_size = 8
-  #     volume_type = "standard"
-  #   }
-
-  #   tags = {
-  #     Name = "${var.instance_tags}-${count.index + 1}"
-  #   }
-
-
 }
+
+
+# resource "aws_instance" "dev_node" {
+#   count = var.instance_count
+
+
+#   #using datasources
+#   # ami                    = data.aws_ami.server_ami.id
+#   # using map created by me
+#   # ami                    = lookup(var.ami, var.aws_region)
+
+#   ami                    = lookup(var.ami, "CentOS7-us-west-2")
+#   instance_type          = var.instance_type
+#   vpc_security_group_ids = [aws_security_group.mtc_sg.id]
+#   subnet_id              = aws_subnet.mtc_public_subnet.id
+#   key_name               = aws_key_pair.mtc_auth.id
+
+#   # user_data = file("userdata.tpl")
+#   # I'll be testing, so, I'll recreate the instance every time i run terraform apply
+#   user_data                   = "echo ${timestamp()} &> /dev/null "
+#   user_data_replace_on_change = true
+
+#   root_block_device {
+#     volume_size = 8
+#     volume_type = "standard"
+#   }
+
+#   tags = {
+#     Name = "${var.instance_tags}-${count.index + 1}"
+#   }
+# }
