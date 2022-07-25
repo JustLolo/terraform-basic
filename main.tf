@@ -149,6 +149,8 @@ resource "aws_instance" "instance" {
     Name = "${each.key}"
     # Name = "${var.instance_tags}-${count.index + 1}"
   }
+
+  depends_on = [null_resource.input_validator]
 }
 
 
