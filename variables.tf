@@ -1,11 +1,11 @@
 variable "instances" {
-  type = map(object({ type = string, OS = string, amount = number }))
+  type = map(object({ type = string, OS = string, amount = number, ec2_instance_type = string }))
   default = {
     # when you add an instance make sure its type exists in local.instance_functionality_list
     # if it isn't terraform will raise and error
-    app-1    = { type = "webapp", OS = "ubuntu-20.04", amount = 1 }
-    app-2    = { type = "webapp", OS = "centos7", amount = 1 }
-    database = { type = "database", OS = "centos7", amount = 1 }
+    app-1    = { type = "webapp", OS = "ubuntu-20.04", amount = 1, ec2_instance_type = "t2.micro" }
+    app-2    = { type = "webapp", OS = "centos7", amount = 1, ec2_instance_type = "t2.micro" }
+    database = { type = "database", OS = "centos7", amount = 1, ec2_instance_type = "t2.micro" }
   }
 }
 
@@ -25,11 +25,6 @@ locals {
   instances_flatten = flatten([for instance_functionality in local.instances : instance_functionality])
 }
 
-variable "instance_type" {
-  type    = string
-  default = "t2.micro"
-}
-
 # can't have weird caracter like '-', ansible will have some issues with the inventory
 variable "instance_tags" {
   type    = string
@@ -47,9 +42,8 @@ variable "host_os" {
 }
 
 # add here your AMIs, based on the pattern => "OS_region" = "ami-someamiid"
-variable "ami" {
-  type = map(any)
-  default = {
+locals {
+  ami = {
     # Ubuntu 20.04 LTS
     "ubuntu-20.04_us-west-2" = "ami-0ddf424f81ddb0720"
     "ubuntu-20.04_us-east-2" = "ami-0b4fa084a1e7e6f5a"

@@ -129,8 +129,8 @@ resource "aws_key_pair" "mtc_auth" {
 resource "aws_instance" "instance" {
   for_each = var.instances
 
-  ami                    = lookup(var.ami, join("_", [each.value.OS, var.aws_region]))
-  instance_type          = var.instance_type
+  ami                    = lookup(local.ami, join("_", [each.value.OS, var.aws_region]))
+  instance_type          = each.value.ec2_instance_type
   vpc_security_group_ids = [aws_security_group.mtc_sg.id]
   subnet_id              = aws_subnet.mtc_public_subnet.id
   key_name               = aws_key_pair.mtc_auth.id
@@ -161,9 +161,9 @@ resource "aws_instance" "instance" {
 #   #using datasources
 #   # ami                    = data.aws_ami.server_ami.id
 #   # using map created by me
-#   # ami                    = lookup(var.ami, var.aws_region)
+#   # ami                    = lookup(local.ami, var.aws_region)
 
-#   ami                    = lookup(var.ami, "CentOS7-us-west-2")
+#   ami                    = lookup(local.ami, "CentOS7-us-west-2")
 #   instance_type          = var.instance_type
 #   vpc_security_group_ids = [aws_security_group.mtc_sg.id]
 #   subnet_id              = aws_subnet.mtc_public_subnet.id
