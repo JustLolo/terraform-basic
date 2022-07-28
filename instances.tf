@@ -28,42 +28,41 @@ resource "aws_instance" "webapp" {
 
   depends_on = [null_resource.input_validator]
 }
+# resource "aws_instance" "webapp_asg" {
+#   #used tostring function bc thisis experimental, and this output is not going to change
+#   for_each = { for key, instance in var.instances : key => instance if instance.type == "webapp" && (tostring(instance.ASG) == "true") }
 
-# asg -> auto scaling group
-resource "aws_instance" "webapp_asg" {
-  #used tostring function bc thisis experimental, and this output is not going to change
-  for_each = { for key, instance in var.instances : key => instance if instance.type == "webapp" && (tostring(instance.ASG) == "true") }
+#   # ami                    = data.aws_ami.server_ami.id
+#   ami                    = lookup(local.ami, join("_", [each.value.OS, var.aws_region]))
+#   instance_type          = each.value.ec2_instance_type
+#   vpc_security_group_ids = [aws_security_group.mtc_sg.id]
+#   subnet_id              = aws_subnet.mtc_public_subnet.id
+#   key_name               = aws_key_pair.mtc_auth.id
 
-  # ami                    = data.aws_ami.server_ami.id
-  ami                    = lookup(local.ami, join("_", [each.value.OS, var.aws_region]))
-  instance_type          = each.value.ec2_instance_type
-  vpc_security_group_ids = [aws_security_group.mtc_sg.id]
-  subnet_id              = aws_subnet.mtc_public_subnet.id
-  key_name               = aws_key_pair.mtc_auth.id
+#   user_data = <<-EOF
+#               #!/bin/bash
+#               echo "Hello, Terraform & AWS" > index.html
+#               echo "I am a ${each.key} instance with ASG" > index.html
+#               nohup busybox httpd -f -p 80 &
+#               EOF
 
-  user_data = <<-EOF
-              #!/bin/bash
-              echo "Hello, Terraform & AWS" > index.html
-              echo "I am a ${each.key} instance with ASG" > index.html
-              nohup busybox httpd -f -p 80 &
-              EOF
+#   lifecycle {
+#     #this resource will use ASG, we need it always online
+#     create_before_destroy = true
+#   }
 
-  lifecycle {
-    #this resource will use ASG, we need it always online
-    create_before_destroy = true
-  }
+#   root_block_device {
+#     volume_size = 8
+#     volume_type = "standard"
+#   }
 
-  root_block_device {
-    volume_size = 8
-    volume_type = "standard"
-  }
+#   tags = {
+#     Name = "${each.key}"
+#   }
 
-  tags = {
-    Name = "${each.key}"
-  }
+#   depends_on = [null_resource.input_validator]
+# }
 
-  depends_on = [null_resource.input_validator]
-}
 
 resource "aws_instance" "database" {
   #used tostring function bc thisis experimental, and this output is not going to change
