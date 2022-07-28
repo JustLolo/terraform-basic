@@ -1,9 +1,17 @@
+terraform {
+  #needed for the optional ASG variable, From Terraform v0.14
+  experiments = [module_variable_optional_attrs]
+}
+
 variable "instances" {
-  type = map(object({ type = string, OS = string, amount = number, ec2_instance_type = string }))
+  type = map(object({ type = string, OS = string, amount = number, ec2_instance_type = string, ASG = optional(bool) }))
+  # type = map(any)
   default = {
-    # when you add an instance make sure its type exists in local.instance_functionality_list
+    # when you add an instance make sure its type and OS is checked in input_validator.tf
     # if it isn't terraform will raise and error
-    app-1    = { type = "webapp", OS = "ubuntu-20.04", amount = 1, ec2_instance_type = "t2.micro" }
+    # input structure { type = string, OS = string, amount = number, ec2_instance_type = string , ASG = bool (optional)}))
+    # ASG = Enable Auto Scaling Group, it has to be "webapp" type, if it isn't, this will be ignored
+    app-1    = { type = "webapp", OS = "ubuntu-20.04", amount = 1, ec2_instance_type = "t2.micro", ASG = true }
     app-2    = { type = "webapp", OS = "centos7", amount = 1, ec2_instance_type = "t2.micro" }
     database = { type = "database", OS = "centos7", amount = 1, ec2_instance_type = "t2.micro" }
   }

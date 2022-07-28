@@ -126,34 +126,6 @@ resource "aws_key_pair" "mtc_auth" {
   }
 }
 
-resource "aws_instance" "instance" {
-  for_each = var.instances
-
-  ami                    = lookup(local.ami, join("_", [each.value.OS, var.aws_region]))
-  instance_type          = each.value.ec2_instance_type
-  vpc_security_group_ids = [aws_security_group.mtc_sg.id]
-  subnet_id              = aws_subnet.mtc_public_subnet.id
-  key_name               = aws_key_pair.mtc_auth.id
-
-  # user_data = file("userdata.tpl")
-  # I'll be testing, so, I'll recreate the instance every time i run terraform apply
-  user_data                   = var.recreate_instances_after_apply ? "echo ${timestamp()} &> /dev/null " : ""
-  user_data_replace_on_change = var.recreate_instances_after_apply
-
-  root_block_device {
-    volume_size = 8
-    volume_type = "standard"
-  }
-
-  tags = {
-    Name = "${each.key}"
-    # Name = "${var.instance_tags}-${count.index + 1}"
-  }
-
-  depends_on = [null_resource.input_validator]
-}
-
-
 # resource "aws_instance" "dev_node" {
 #   count = var.instance_count
 

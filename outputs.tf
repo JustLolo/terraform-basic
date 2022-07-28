@@ -2,20 +2,20 @@ output "intances_tree" {
   value = local.instances
 }
 
-output "instance_tags" {
+output "webapp" {
   value = {
-    for name, value in aws_instance.instance : name => value.tags.Name
+    for name, value in aws_instance.webapp : name => [value.tags.Name, value.public_dns, value.public_ip]
   }
 }
 
-output "instance_ip" {
+output "webapp_asg" {
   value = {
-    for name, value in aws_instance.instance : name => value.public_ip
+    for name, value in aws_instance.webapp_asg : name => [value.tags.Name, value.public_dns, value.public_ip]
   }
 }
 
-output "instance_public_dns" {
+output "database" {
   value = {
-    for name, value in aws_instance.instance : name => value.public_dns
+    for name, value in aws_instance.database : name => [value.tags.Name, value.public_dns, value.public_ip]
   }
 }
